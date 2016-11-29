@@ -7,6 +7,9 @@ if (isset($_GET["action"]) && $_GET["action"] == "register") {
   header("Location: index.php?feedback=$feedback");
   die("Registration done");
 } else if (isset($_GET["action"]) && $_GET["action"] == "logout") {
+  $_SESSION = array();
+  session_destroy();
+  $feedback = "You were just logged out.";
 } else if (isset($_GET["action"]) && $_GET["action"] == "login") {
   performUserLoginAction();
   if(!empty($_SESSION['user_name'])){
@@ -33,6 +36,7 @@ function performUserLoginAction()
       if ($result_row) {
         if (password_verify($_POST['user_password'], $result_row[user_password_hash])) {
           $_SESSION['user_name'] = $result_row[user_name];
+          $_SESSION['user_id'] = $result_row[user_id];
           $_SESSION['user_email'] = $result_row[user_email];
           return true;
         } else {
