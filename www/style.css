@@ -1,0 +1,15 @@
+.loginform {
+  width:100%;
+  text-align:center;
+}
+.centerparent {
+display: flex;
+text-align: center;
+height: 90%; /* Or whatever */
+}
+
+.centerchild {
+width: 300px;  /* Or whatever */
+height: 300px; /* Or whatever */
+margin: auto;  /* Magic! */
+}

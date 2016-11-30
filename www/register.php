@@ -5,33 +5,28 @@ require("common.php");
 <head>
   <title>julkl-app</title>
   <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
+<body class="centerparent">
+  <div class="centerchild">
   <h2>Registration</h2>
   <form method="post" action="login.php?action=register" name="registerform">
     <br>
-    <label for="login_input_username">Username (only letters and numbers, 2 to 64 characters)</label>
-    <input id="login_input_username" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required />
+    <input class="loginform" placeholder="Username" id="login_input_username" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required />
     <br>
-    <label for="login_input_email">User's email</label>
-    <input id="login_input_email" type="email" name="user_email" required />
+    <input class="loginform" placeholder="Email" id="login_input_email" type="email" name="user_email" required />
     <br>
-    <label for="login_input_password_new">Password (min. 6 characters)</label>
-    <input id="login_input_password_new" class="login_input" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" />
+    <input class="loginform" placeholder="Password" id="login_input_password_new" class="login_input" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" />
     <br>
-    <label for="login_input_password_repeat">Repeat password</label>
-    <input id="login_input_password_repeat" class="login_input" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" />
+    <input class="loginform" placeholder="Password again" id="login_input_password_repeat" class="login_input" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" />
     <input type="submit" name="register" value="Register" />
   </form>
   <a href=".">Homepage</a>
-
-
-
-
   <?php
   if (isset($_GET["feedback"])) {
     echo "<br/><br/>" . $_GET["feedback"] . "<br/><br/>";
   }
   ?>
+</div>
 </body>
 </html>
