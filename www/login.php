@@ -26,7 +26,7 @@ function performUserLoginAction()
   global $db;
   if (isset($_POST["login"])) {
     if (checkLoginFormDataNotEmpty()) {
-      $sql = 'SELECT user_name, user_email, user_password_hash
+      $sql = 'SELECT user_name, user_email, user_id, user_password_hash
       FROM users
       WHERE user_name = :user_name OR user_email = :user_name';
       $query = $db->prepare($sql);
@@ -34,10 +34,10 @@ function performUserLoginAction()
       $query->execute();
       $result_row = $query->fetch();
       if ($result_row) {
-        if (password_verify($_POST['user_password'], $result_row[user_password_hash])) {
-          $_SESSION['user_name'] = $result_row[user_name];
-          $_SESSION['user_id'] = $result_row[user_id];
-          $_SESSION['user_email'] = $result_row[user_email];
+        if (password_verify($_POST['user_password'], $result_row['user_password_hash'])) {
+          $_SESSION['user_name'] = $result_row['user_name'];
+          $_SESSION['user_id'] = $result_row['user_id'];
+          $_SESSION['user_email'] = $result_row['user_email'];
           return true;
         } else {
           $feedback = "Wrong password.";
