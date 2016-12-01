@@ -15,18 +15,28 @@ if(empty($_SESSION['user_name'])){
   <script src="http://code.jquery.com/jquery.min.js"></script>
   <script>
 
+
+
   $(document).ready(function () {
     $('button#listbutton').on('click', function() {
-      $('#main').load('editList.php');
-    });
-  });
 
-  $(document).ajaxComplete(function(){
-    $('button#savelist').on('click', function() {
-      var list = {list_text:$('#mylist').val()};
-      $('#main').load('editList.php', list);
+      $('#main').animate({'opacity': 0}, 200, function () {
+        $(this).load("editList.php",function() {
+          $(this).animate({'opacity': 1}, 200)});
+        });
+      });
     });
-  });
+
+    $(document).ajaxComplete(function(){
+      $('button#savelist').on('click', function() {
+        var list = {list_text:$('#mylist').val()};
+
+        $('#main').animate({'opacity': 0}, 200, function () {
+          $(this).load('editList.php', list, function() {
+            $(this).animate({'opacity': 1}, 200)});
+          });
+        });
+      });
 
   </script>
 
