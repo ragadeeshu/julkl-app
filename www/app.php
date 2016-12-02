@@ -15,28 +15,33 @@ if(empty($_SESSION['user_name'])){
   <script src="http://code.jquery.com/jquery.min.js"></script>
   <script>
 
+  function fancyLoad(target){
+    $('#content').animate({'opacity': 0}, 200, function () {
+      $(this).load(target,function() {
+        $(this).animate({'opacity': 1}, 200)});
+      });
+  }
+
+  function fancyLoad(target, param){
+    $('#content').animate({'opacity': 0}, 200, function () {
+      $(this).load(target, param, function() {
+        $(this).animate({'opacity': 1}, 200)});
+      });
+  }
 
 
   $(document).ready(function () {
     $('button#listbutton').on('click', function() {
-
-      $('#main').animate({'opacity': 0}, 200, function () {
-        $(this).load("editList.php",function() {
-          $(this).animate({'opacity': 1}, 200)});
-        });
-      });
+      fancyLoad("editList.php");
     });
+  });
 
-    $(document).ajaxComplete(function(){
-      $('button#savelist').on('click', function() {
-        var list = {list_text:$('#mylist').val()};
-
-        $('#main').animate({'opacity': 0}, 200, function () {
-          $(this).load('editList.php', list, function() {
-            $(this).animate({'opacity': 1}, 200)});
-          });
-        });
-      });
+  $(document).ajaxComplete(function(){
+    $('button#savelist').on('click', function() {
+      var list = {list_text:$('#mylist').val()};
+      fancyLoad('editList.php', list);
+    });
+  });
 
   </script>
 
@@ -52,7 +57,9 @@ if(empty($_SESSION['user_name'])){
       Lists goes here.
     </nav>
     <div id="main" class="flex-content">
-      Use the buttons on the page to start using the julkl-app.
+      <div id="content">
+        Use the buttons on the page to start using the julkl-app.
+      </div>
     </div>
   </div>
 </body>
