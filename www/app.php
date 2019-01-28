@@ -53,9 +53,22 @@ if(empty($_SESSION['user_name'])){
     <p style="float: left; width: 33.3%; text-align: right;"><a href="login.php?action=logout">Log out</a></p>
   </div>
   <div class="flex-container">
-    <nav class="flex-list">
-      Lists goes here.
+    <div class="flex-list">
+      <h3>Choose list to view </h3>
+      <nav id="nav">
+      <?php $sql = 'SELECT list_id, user_name
+      FROM lists NATURAL JOIN users
+      WHERE user_id != :user_id';
+      $query = $db->prepare($sql);
+      $query->bindValue(':user_id', $_SESSION['user_id']);
+      $query->execute();
+      while ($result_row = $query->fetch()) {
+        ?>
+        <li><?= $result_row['user_name'] ?></li>
+        <?php
+      } ?>
     </nav>
+  </div>
     <div id="main" class="flex-content">
       <div id="content">
         Use the buttons on the page to start using the julkl-app.
